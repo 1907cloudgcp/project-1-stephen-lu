@@ -4,7 +4,7 @@ let dbObject = {
     techTrack:''
 }
 
-document.getElementById('header').innerText = "YOUR TITLE GOES HERE";
+document.getElementById('header').innerText = "RevAntarctica";
 
 //this assumes your cloud function will return a value named address with the address to an image, in a cloud storage bucket
 async function setUpImages(){
@@ -15,7 +15,7 @@ async function setUpImages(){
     images.forEach(async (value, index)=>{
         //index is the numbered image in the carousel if that matters to you
         let response = await fetch("https://us-central1-cloudadmingcpdemos.cloudfunctions.net/helloworld")
-        
+
     if(response.status <200 || response.status > 299){
         value.src = "images/penguins.jpg"
     } else {
@@ -58,7 +58,7 @@ async function buildTable (){
         document.getElementById('footer-table').appendChild(error)
     }else {
         let objectList = await objectResponse.json()
-       
+
         let headRow = document.createElement('tr')
         document.getElementById('object-table-head').appendChild(headRow)
         for(key in dbObject){
@@ -67,10 +67,10 @@ async function buildTable (){
             th.className = 'object-table-data'
             headRow.appendChild(th)
         }
-        
+
         objectList = objectList.map((e)=>{
             let newe = {};
-            for(key in dbObject){                
+            for(key in dbObject){
                 newe[key] = e[key]
             }
             return newe
@@ -86,7 +86,7 @@ async function buildTable (){
                 row.appendChild(data)
             }
         })
-        
+
     }
 }
 
@@ -125,7 +125,7 @@ function createObject(event){
             input.value = ''
         }
     }
-    
+
     fetch('YOUR CLOUD FUNCTION URL FOR CREATING A NEW OBJECT',{
         method: 'POST',
         body: JSON.stringify(newObj)
