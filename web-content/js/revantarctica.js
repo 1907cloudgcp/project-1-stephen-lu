@@ -1,7 +1,7 @@
 let dbObject = {
-  nombre: '',
-  client:'',
-  techTrack:''
+  First_Name: '',
+  Last_Name:'',
+  Age:''
 }
 
 document.getElementById('header').innerText = "RevAntarctica";
@@ -14,13 +14,13 @@ async function setUpImages(){
   images.push(document.getElementById('carousel-3'))
   images.forEach(async (value, index)=>{
     //index is the numbered image in the carousel if that matters to you
-    let response = await fetch("https://us-central1-cloudadmingcpdemos.cloudfunctions.net/helloworld")
+    let response = await fetch("https://us-central1-project-1-revantarctica.cloudfunctions.net/get_images?message=" + index)
 
     if(response.status <200 || response.status > 299){
       value.src = "images/penguins.jpg"
     } else {
       data =  await response.json()
-      value.src = data["WHATEVER YOU NAMED THE FIELD IN YOUR RETURN"]
+      value.src = data["url"]
     }
   })
 }
@@ -51,7 +51,7 @@ async function calcSubmit(event){
 
 
 async function buildTable (){
-  let objectResponse = await fetch("YOUR CLOUD FUNCTION URL FOR GETTING DATA")
+  let objectResponse = await fetch("https://us-central1-project-1-revantarctica.cloudfunctions.net/revantarctica-get-datastore")
   if(objectResponse.status <200 || objectResponse.status >299){
     let error =document.createElement('p')
     error.innerText = "Fetch Failed"
@@ -68,6 +68,7 @@ async function buildTable (){
       headRow.appendChild(th)
     }
 
+    console.log(objectList)
     objectList = objectList.map((e)=>{
       let newe = {};
       for(key in dbObject){
@@ -126,7 +127,7 @@ function createObject(event){
     }
   }
 
-  fetch('YOUR CLOUD FUNCTION URL FOR CREATING A NEW OBJECT',{
+  fetch('https://us-central1-project-1-revantarctica.cloudfunctions.net/create-entity',{
     method: 'POST',
     body: JSON.stringify(newObj)
   })
