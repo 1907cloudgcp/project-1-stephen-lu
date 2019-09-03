@@ -26,7 +26,7 @@ async function setUpImages(){
 }
 setUpImages()
 
-document.getElementById('calc-label').innerText = "nth Magic Square"
+document.getElementById('calc-label').innerText = "nth Pentagonal Number"
 
 document.getElementById('calc-input').type = 'number'
 
